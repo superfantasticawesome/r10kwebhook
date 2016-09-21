@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-from app import app
+from r10kwebhook import app
 import unittest
 import tempfile
 import json
