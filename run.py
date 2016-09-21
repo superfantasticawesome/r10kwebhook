@@ -2,7 +2,7 @@
 
 import argparse
 
-from app import app
+from r10kwebhook import app
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--port', '-p', dest='port', default=5000)

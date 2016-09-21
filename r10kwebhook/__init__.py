@@ -6,7 +6,7 @@ from  flask.ext.runner import Runner
 import json
 
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
+app.config.from_pyfile('../config.py')
 runner = Runner(app)
 
 @app.route('/')
