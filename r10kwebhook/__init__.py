@@ -27,7 +27,13 @@ def deploy():
                 '-p', '-c',
                 app.config['R10K_CONF']
                 ], shell=True)
-        return json.dumps({'msg': 'Hi!'})
+        return json.dumps(
+                {
+                    'r10k command': app.config['R10K'],
+                    'environemnt': data['environment'],
+                    'r10k config': app.config['R10K_CONF'] ,
+                    }
+                )
 
 
 if __name__ == "__main__":
