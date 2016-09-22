@@ -20,17 +20,16 @@ def deploy():
     elif request.method == 'POST':
         data = json.loads(request.data.decode('utf-8'))
         print("Deploying " + data['environment'])
-        subprocess.call([
-                app.config['R10K'],
-                'deploy', 'environment',
-                data['environment'],
-                '-p', '-c',
+        R10KCMD = (
+                app.config['R10K'] + ' deploy environment ' +
+                data['environment'] + ' -p -c ' +
                 app.config['R10K_CONF']
-                ], shell=True)
+                )
+        os.system(R10KCMD)
         return json.dumps(
                 {
                     'r10k command': app.config['R10K'],
-                    'environemnt': data['environment'],
+                    'environment': data['environment'],
                     'r10k config': app.config['R10K_CONF'] ,
                     }
                 )
