@@ -1,0 +1,17 @@
+#!/bin/sh
+
+ENVIRONMENT=$1
+R10KBIN=$2
+R10KCONF=$3
+
+if [ ! -z ${R10KBIN} ]
+then
+    R10KBIN='/opt/puppetlabs/puppet/bin/r10k'
+fi
+
+if [ ! -z ${R10KCONF} ]
+then
+    R10KCONF='/etc/puppetlabs/r10k/r10k.yaml'
+fi
+
+${R10KBIN} deploy environment ${ENVIRONMENT} -p -c ${R10KCONF}
