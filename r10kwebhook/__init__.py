@@ -20,13 +20,16 @@ def deploy():
     elif request.method == 'POST':
         data = json.loads(request.data.decode('utf-8'))
         print("Deploying " + data['environment'])
+        appdir = os.path.dirname(os.path.realpath(__file__))
+        deploydir = (os.path.abspath(os.path.join(appdir, os.pardir)))
+        deployscript = os.path.join(deploydir, 'deploy')
         subprocess.call(
                 [
                     './deploy',
                     data['environment'],
                     app.config['R10K'],
                     app.config['R10K_CONF']
-                    ], shell=True
+                    ]
                 )
         return json.dumps(
                 {
