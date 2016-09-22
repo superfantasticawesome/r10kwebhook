@@ -25,7 +25,7 @@ def deploy():
         deployscript = os.path.join(deploydir, 'deploy')
         subprocess.call(
                 [
-                    './deploy',
+                    deployscript,
                     data['environment'],
                     app.config['R10K'],
                     app.config['R10K_CONF']
