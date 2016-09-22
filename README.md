@@ -1,10 +1,9 @@
-# R10K webhook
 
 A (currently) very simple web hook for running r10k.
 
 It is written in Flask and is designed to run under it's own web server - no Gunicorn, NGinx, Apache whattever.
 
-## Installation
+# Installation
 
 I run it as the `puppet` user so that it can have access to everything it needs without me having to play around.
 
@@ -45,7 +44,7 @@ sudo systemctl start r10kwebhook
 sudo systemctl enable r10kwebhook
 ```
 
-## Usage
+# Usage
 
 A `POST` request with a JSON document of the format:
 
@@ -86,3 +85,8 @@ on_success:
     stage: deploy
     script:
         - ./call-webhook.sh 
+```
+
+# TODO 
+
+- A front page that enables the deployment of environments manually and just syncing all the environments with Git.
