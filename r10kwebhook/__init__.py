@@ -19,14 +19,22 @@ def deploy():
         return 'OK'
     elif request.method == 'POST':
         data = json.loads(request.data.decode('utf-8'))
-        print("Deploying " + data['environment'])
+        if 'X-GitHub-Event' in request.headers or 'X-Gitlab-Event' in request.headers: # GitHub/GitLab
+            environment = data['ref'].split('/')[-1]
+        elif 'X-Event-Key' in request.headers: # Atlassian
+            environment = 'push']['changes'][0]['new']['name']
+        elif 'environment' in data: # Original behavior
+            environment = data['environment']
+        else: # Default to GitHub/GitLab
+            environment = data['ref'].split('/')[-1]
+        print("Deploying " + environment)
         appdir = os.path.dirname(os.path.realpath(__file__))
         deploydir = (os.path.abspath(os.path.join(appdir, os.pardir)))
         deployscript = os.path.join(deploydir, 'deploy')
         subprocess.call(
                 [
                     deployscript,
-                    data['environment'],
+                    environment,
                     app.config['R10K'],
                     app.config['R10K_CONF']
                     ]
@@ -34,7 +42,7 @@ def deploy():
         return json.dumps(
                 {
                     'r10k command': app.config['R10K'],
-                    'environment': data['environment'],
+                    'environment': environment,
                     'r10k config': app.config['R10K_CONF'] ,
                     }
                 )
