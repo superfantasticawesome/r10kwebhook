@@ -22,7 +22,7 @@ def deploy():
         if 'X-GitHub-Event' in request.headers or 'X-Gitlab-Event' in request.headers: # GitHub/GitLab
             environment = data['ref'].split('/')[-1]
         elif 'X-Event-Key' in request.headers: # Atlassian
-            environment = 'push']['changes'][0]['new']['name']
+            environment = data['push']['changes'][0]['new']['name']
         elif 'environment' in data: # Original behavior
             environment = data['environment']
         else: # Default to GitHub/GitLab
